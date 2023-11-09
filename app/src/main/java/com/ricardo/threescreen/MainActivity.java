@@ -1,17 +1,14 @@
 package com.ricardo.threescreen;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -20,8 +17,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView mRecycleView, mRecycleView_middle;
-    MyAdapter myAdapter;
+
     List<String> mList = new ArrayList<>();
+    List<String> middleList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,53 +32,40 @@ public class MainActivity extends AppCompatActivity {
         // 构造数据
         for (int i = 0; i < 50; ++i) {
             mList.add("标题" + i);
+            middleList.add("标题"+i);
         }
 
-        myAdapter = new MyAdapter();
-        mRecycleView.setAdapter(myAdapter);
-        LinearLayoutManager layoutManager = new LinearLayoutManager((MainActivity.this));
+
+        BaseRecycleAdapter baseRecycleAdapter = new BaseRecycleAdapter<String, leftViewHolder>(mList, R.layout.item_list, leftViewHolder.class);
+        mRecycleView.setAdapter(baseRecycleAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         mRecycleView.setLayoutManager(layoutManager);
         mRecycleView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
-    }
 
-    class MyAdapter extends RecyclerView.Adapter<MyViewHoder> {
-        @NonNull
-        @Override
-        public MyViewHoder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//            View view = View.inflate(MainActivity.this, R.layout.item_list, null);
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);//解决宽度不能铺满
-            MyViewHoder myViewHoder = new MyViewHoder(view);
-            return myViewHoder;
-        }
+        baseRecycleAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(Object itemData, View view, int position) {
+                //重写item被点击后要处理的事情
+                Toast.makeText(MainActivity.this, "点击了标题1-" + (position + 1), Toast.LENGTH_SHORT).show();
 
-        @Override
-        public void onBindViewHolder(@NonNull MyViewHoder holder, int position) {
-            String string = mList.get(position);
-            holder.mTitleTv.setText(string);
+                BaseRecycleAdapter baseRecycleAdapter_middle = new BaseRecycleAdapter<String, middleViewHolder>(middleList, R.layout.middle_item, middleViewHolder.class);
+                mRecycleView_middle.setAdapter(baseRecycleAdapter_middle);
+                LinearLayoutManager layoutManager_middle = new LinearLayoutManager(MainActivity.this);
+                mRecycleView_middle.setLayoutManager(layoutManager_middle);
+                mRecycleView_middle.addItemDecoration(new DividerItemDecoration(MainActivity.this,DividerItemDecoration.VERTICAL));
 
-            holder.mRootView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, "点击了标题" + position, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return mList.size();
-        }
-    }
-
-    class MyViewHoder extends RecyclerView.ViewHolder {
-        TextView mTitleTv;
-        LinearLayout mRootView;
-
-        public MyViewHoder(@NonNull View itemView) {
-            super(itemView);
-            mTitleTv = itemView.findViewById(R.id.textView);
-            mRootView = itemView.findViewById(R.id.rootView);
-        }
+                baseRecycleAdapter_middle.setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object itemData, View view, int position) {
+                        //重写item被点击后要处理的事情
+                        Toast.makeText(MainActivity.this, "点击了标题2-" + (position + 1), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
     }
+
+
+
 }
