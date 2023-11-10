@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 pre = position;
 
-                int temp = position;
-
                 // 构造子项数据
                 middleList.clear();
                 for (int i = 1; i <= (position + 1); ++i) {
@@ -73,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(Object itemData, View view, int position) {
                         // 重写item被点击后要处理的事情
-                        Toast.makeText(MainActivity.this, "点击了标题" + (temp + 1) + "-" + (position + 1), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "点击了标题" + (pre + 1) + "-" + (position + 1), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
