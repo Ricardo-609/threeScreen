@@ -28,7 +28,8 @@ public class leftViewHolder extends BaseViewHolder<String> {
     @Override
     public void loadItemData(Context context, String data, int position) {
 
-        textView.setText(String.valueOf("标题1-" + (position + 1)));
+//        textView.setText(String.valueOf("标题1-" + (position + 1)));
+        textView.setText(data);
 
     }
 }

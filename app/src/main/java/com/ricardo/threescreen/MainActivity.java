@@ -30,9 +30,8 @@ public class MainActivity extends AppCompatActivity {
         mRecycleView_middle = findViewById(R.id.recyclerView_middle);
 
         // 构造数据
-        for (int i = 0; i < 50; ++i) {
+        for (int i = 1; i <= 20; ++i) {
             mList.add("标题" + i);
-            middleList.add("标题"+i);
         }
 
 
@@ -42,11 +41,27 @@ public class MainActivity extends AppCompatActivity {
         mRecycleView.setLayoutManager(layoutManager);
         mRecycleView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
 
+
         baseRecycleAdapter.setOnItemClickListener(new OnItemClickListener() {
+            int pre = -1;
+
             @Override
             public void onItemClick(Object itemData, View view, int position) {
-                //重写item被点击后要处理的事情
-                Toast.makeText(MainActivity.this, "点击了标题1-" + (position + 1), Toast.LENGTH_SHORT).show();
+                // 重写item被点击后要处理的事情
+                Toast.makeText(MainActivity.this, "点击了标题" + (position + 1), Toast.LENGTH_SHORT).show();
+
+                if (pre == position) {
+                    return ;
+                }
+                pre = position;
+
+                int temp = position;
+
+                // 构造子项数据
+                middleList.clear();
+                for (int i = 1; i <= (position + 1); ++i) {
+                    middleList.add("标题" + (position + 1) +"-"+i);
+                }
 
                 BaseRecycleAdapter baseRecycleAdapter_middle = new BaseRecycleAdapter<String, middleViewHolder>(middleList, R.layout.middle_item, middleViewHolder.class);
                 mRecycleView_middle.setAdapter(baseRecycleAdapter_middle);
@@ -57,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 baseRecycleAdapter_middle.setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(Object itemData, View view, int position) {
-                        //重写item被点击后要处理的事情
-                        Toast.makeText(MainActivity.this, "点击了标题2-" + (position + 1), Toast.LENGTH_SHORT).show();
+                        // 重写item被点击后要处理的事情
+                        Toast.makeText(MainActivity.this, "点击了标题" + (temp + 1) + "-" + (position + 1), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
