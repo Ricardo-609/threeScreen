@@ -1,15 +1,16 @@
 package com.ricardo.threescreen;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.ricardo.threescreen.BaseRecyclerView.BaseRecycleAdapter;
+import com.ricardo.threescreen.BaseRecyclerView.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

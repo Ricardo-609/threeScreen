@@ -1,4 +1,4 @@
-package com.ricardo.threescreen;
+package com.ricardo.threescreen.BaseRecyclerView;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.tabs.TabLayout;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

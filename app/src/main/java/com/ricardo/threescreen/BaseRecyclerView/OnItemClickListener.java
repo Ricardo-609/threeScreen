@@ -1,4 +1,4 @@
-package com.ricardo.threescreen;
+package com.ricardo.threescreen.BaseRecyclerView;
 
 import android.view.View;
 

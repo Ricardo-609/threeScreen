@@ -6,6 +6,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.ricardo.threescreen.BaseRecyclerView.BaseViewHolder;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
